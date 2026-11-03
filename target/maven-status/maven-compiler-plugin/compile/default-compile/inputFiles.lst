@@ -1,0 +1,17 @@
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\App.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\domain\AppUser.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\domain\Doc.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\domain\DocType.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\domain\Organization.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\repository\DocRepo.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\repository\OrgRepo.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\repository\TypeRepo.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\repository\UserRepo.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\security\Ctx.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\security\JwtService.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\security\SecurityConfig.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\web\AdminController.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\web\ApiController.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\web\ApiErrors.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\web\CorsConfig.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\web\Seed.java
