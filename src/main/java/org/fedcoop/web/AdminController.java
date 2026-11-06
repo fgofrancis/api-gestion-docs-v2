@@ -22,10 +22,12 @@ public class AdminController {
   private Ctx fedAdmin(){ var c=admin(); if(!c.federation()) throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Solo la Federación puede gestionar cooperativas"); return c; }
   private ResponseStatusException bad(String m){ return new ResponseStatusException(HttpStatus.BAD_REQUEST,m); }
   private UserDto dto(AppUser u,Ctx c){ return new UserDto(u.getId(),u.getEmail(),u.getFullName(),u.getRole().name(),u.isActive(),u.getOrg().getId(),u.getOrg().getName(),u.getId().equals(c.uid())); }
+
   private AppUser target(Long id,Ctx c){
     AppUser u=users.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
     if(!c.federation() && !u.getOrg().getId().equals(c.orgId())) throw new ResponseStatusException(HttpStatus.NOT_FOUND);   // aislamiento
-    return u; }
+    return u;
+  }
   private void checkPass(String p){ if(p==null||p.length()<8) throw bad("La contraseña debe tener al menos 8 caracteres"); }
 
   // ---------- Usuarios ----------
@@ -40,14 +42,22 @@ public class AdminController {
     var c=admin();
     if(r.email()==null||!r.email().matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")) throw bad("Correo inválido");
     if(r.fullName()==null||r.fullName().isBlank()) throw bad("El nombre es obligatorio");
+
     checkPass(r.password());
     String mail=r.email().trim().toLowerCase();
+
     if(users.findByEmail(mail).isPresent()) throw bad("Ya existe un usuario con ese correo");
+
     Long orgId = c.federation() && r.orgId()!=null ? r.orgId() : c.orgId();       // una cooperativa solo crea en la suya
     Organization org=orgs.findById(orgId).orElseThrow(()->bad("Organización inválida"));
+
     var u=new AppUser(); u.setEmail(mail); u.setFullName(r.fullName().trim()); u.setOrg(org);
-    u.setRole("ADMIN".equals(r.role())?AppUser.Role.ADMIN:AppUser.Role.USER); u.setPasswordHash(enc.encode(r.password()));
-    return dto(users.save(u),c); }
+    u.setRole("ADMIN".equals(r.role())?AppUser.Role.ADMIN:AppUser.Role.USER);
+    u.setPasswordHash(enc.encode(r.password()));
+    u.setMustChangePassword(true);   // clave temporal
+
+    return dto(users.save(u),c);
+  }
 
   @PutMapping("/users/{id}")
   UserDto updateUser(@PathVariable Long id,@RequestBody UserReq r){
@@ -60,7 +70,11 @@ public class AdminController {
     return dto(u,c); }
 
   @PostMapping("/users/{id}/password")
-  void resetPassword(@PathVariable Long id,@RequestBody PassReq r){ var c=admin(); var u=target(id,c); checkPass(r.password()); u.setPasswordHash(enc.encode(r.password())); }
+  void resetPassword(@PathVariable Long id,@RequestBody PassReq r){
+    var c=admin(); var u=target(id,c); checkPass(r.password());
+    u.setPasswordHash(enc.encode(r.password()));
+    u.setMustChangePassword(true);
+  }
 
   // ---------- Cooperativas (solo Federación) ----------
   @GetMapping("/cooperatives")

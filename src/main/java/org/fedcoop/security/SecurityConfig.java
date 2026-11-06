@@ -16,7 +16,10 @@ public class SecurityConfig {
             .csrf(c->c.disable())
             .sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .cors(c->{})
-      .authorizeHttpRequests(a->a.requestMatchers("/api/auth/**").permitAll().requestMatchers("/api/**").authenticated().anyRequest().permitAll())
+      .authorizeHttpRequests(a->a
+              .requestMatchers("/api/auth/**").permitAll() //Toda ruta que empiece por /api/auth/ está permitida para cualquiera. No necesitan JWT
+              .requestMatchers("/api/**").authenticated()  // Cualquier ruta que empiece por /api/ requiere un usuario autenticado. necesitan JWT.
+              .anyRequest().permitAll()) // Todo lo que no haya coincidido con las reglas anteriores está permitido.
       .exceptionHandling(e->e.authenticationEntryPoint((q,r,x)->r.sendError(401)))
       .addFilterBefore(new OncePerRequestFilter(){
         protected void doFilterInternal(HttpServletRequest rq, HttpServletResponse rs, FilterChain ch) throws ServletException, IOException {
@@ -24,6 +27,14 @@ public class SecurityConfig {
           if (h!=null && h.startsWith("Bearer ")) try {
             Ctx c = jwt.parse(h.substring(7));
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(c,null,List.of()));
+
+            // Con clave temporal solo se permite cambiarla: el resto de la API queda bloqueada en el servidor
+            String uri = rq.getRequestURI();
+            if (c.mustChange() && uri.startsWith("/api/") && !uri.equals("/api/account/change-password") && !"OPTIONS".equals(rq.getMethod())) {
+              rs.setStatus(403); rs.setContentType("application/json;charset=UTF-8");
+              rs.getWriter().write("{\"code\":\"PASSWORD_CHANGE_REQUIRED\",\"message\":\"Debes cambiar tu contraseña temporal\"}");
+              return;
+            }
           } catch (Exception ignored) {}
           ch.doFilter(rq,rs);
         }}, UsernamePasswordAuthenticationFilter.class);

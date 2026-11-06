@@ -13,6 +13,7 @@ org\fedcoop\repository\DocRepo.class
 org\fedcoop\web\AdminController.class
 org\fedcoop\domain\AppUser$Role.class
 org\fedcoop\web\AdminController$PassReq.class
+org\fedcoop\web\AccountController$ChangeReq.class
 org\fedcoop\security\JwtService.class
 org\fedcoop\domain\Organization.class
 org\fedcoop\web\CorsConfig.class
@@ -20,6 +21,7 @@ org\fedcoop\web\AdminController$OrgDto.class
 org\fedcoop\security\SecurityConfig$1.class
 org\fedcoop\repository\OrgRepo.class
 org\fedcoop\security\SecurityConfig.class
+org\fedcoop\web\AccountController.class
 org\fedcoop\web\AdminController$UserDto.class
 org\fedcoop\domain\Doc.class
 org\fedcoop\domain\AppUser.class

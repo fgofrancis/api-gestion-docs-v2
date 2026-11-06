@@ -10,11 +10,14 @@ public class JwtService {
     return Jwts.builder().subject(u.getEmail())
       .claim("uid",u.getId()).claim("org",u.getOrg().getId())
       .claim("fed",u.getOrg().getKind()==Organization.Kind.FEDERATION)
-      .claim("adm",u.getRole()==AppUser.Role.ADMIN)
+      .claim("adm",u.getRole()==AppUser.Role.ADMIN).claim("mcp",u.isMustChangePassword())
       .expiration(new Date(System.currentTimeMillis()+8*3600_000L)).signWith(key).compact();
   }
+
   public Ctx parse(String t){
     Claims c = Jwts.parser().verifyWith(key).build().parseSignedClaims(t).getPayload();
-    return new Ctx(c.get("uid",Long.class), c.get("org",Long.class), c.get("fed",Boolean.class), c.get("adm",Boolean.class), c.getSubject());
+    return new Ctx(c.get("uid",Long.class), c.get("org",Long.class), c.get("fed",Boolean.class),
+            c.get("adm",Boolean.class), c.getSubject(), Boolean.TRUE.equals(c.get("mcp",Boolean.class)));
   }
+
 }

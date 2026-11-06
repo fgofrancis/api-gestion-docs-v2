@@ -36,7 +36,8 @@ public class ApiController {
       .orElseThrow(()->new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Credenciales inválidas"));
 
     return Map.of("token",jwt.issue(u),"name",u.getFullName(),"org",u.getOrg().getName(),
-      "federation",u.getOrg().getKind()==Organization.Kind.FEDERATION,"admin",u.getRole()==AppUser.Role.ADMIN);
+      "federation",u.getOrg().getKind()==Organization.Kind.FEDERATION,"admin",
+            u.getRole()==AppUser.Role.ADMIN, "mustChange",u.isMustChangePassword());
   }
 
   /** Tipos disponibles: las cooperativas no ven los tipos exclusivos de la Federación. */

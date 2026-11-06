@@ -8,5 +8,6 @@ public class AppUser {
   String fullName, passwordHash;
   @Enumerated(EnumType.STRING) Role role;
   @Column(columnDefinition="boolean default true") boolean active = true;
+  @Column(columnDefinition="boolean default false") boolean mustChangePassword;   // true = clave temporal definida por un admin
   @ManyToOne(optional=false) Organization org;   // tenant del usuario
 }

@@ -10,6 +10,7 @@ D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop
 D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\security\Ctx.java
 D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\security\JwtService.java
 D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\security\SecurityConfig.java
+D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\web\AccountController.java
 D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\web\AdminController.java
 D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\web\ApiController.java
 D:\Francis\PROYECTOS\Pry_COOPSYSTIC\fedcoop-v2\backend\src\main\java\org\fedcoop\web\ApiErrors.java
