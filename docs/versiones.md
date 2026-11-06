@@ -23,3 +23,18 @@ Pendiente
 FedCoop v1.2
 ✅ PostgreSQL
 ✅ Cloudflare R2
+
+## Trabajando con ramas
+Crear rama
+↓
+Desarrollar funcionalidad
+↓
+Commit
+↓
+Push
+↓
+Versionar con tag v1.1
+↓
+Actualizar main
+↓
+Eliminar rama
