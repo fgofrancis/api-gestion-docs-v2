@@ -7,10 +7,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain; import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+@CrossOrigin(origins = {"http://localhost:4200", "https://eloquent-zuccutto-5c795c.netlify.app"})
 @Configuration
 public class SecurityConfig {
-  @Bean PasswordEncoder encoder(){ return new BCryptPasswordEncoder(); }
+  @Bean PasswordEncoder encoder(){ return new BCryptPasswordEncoder();}
+
   @Bean SecurityFilterChain chain(HttpSecurity http, JwtService jwt) throws Exception {
     http    .headers(headers -> headers.frameOptions(frame -> frame.disable())) //para ver h2-console
             .csrf(c->c.disable())
