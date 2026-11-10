@@ -78,13 +78,18 @@ public class AdminController {
 
   // ---------- Cooperativas (solo Federación) ----------
   @GetMapping("/cooperatives")
-  List<OrgDto> listCoops(){ fedAdmin();
-    return orgs.findByKind(Organization.Kind.COOPERATIVE).stream().map(o->new OrgDto(o.getId(),o.getName(),o.isActive(),users.countByOrgId(o.getId()))).toList(); }
+  List<OrgDto> listCoops(){
+    fedAdmin();
+    return orgs.findByKind(Organization.Kind.COOPERATIVE).stream()
+            .map(o->new OrgDto(o.getId(),o.getName(),o.isActive(),users.countByOrgId(o.getId()))).toList();
+  }
 
   @PostMapping("/cooperatives")
   OrgDto createCoop(@RequestBody OrgReq r){ fedAdmin();
     if(r.name()==null||r.name().isBlank()) throw bad("El nombre es obligatorio");
-    var o=orgs.save(new Organization(null,r.name().trim(),Organization.Kind.COOPERATIVE)); return new OrgDto(o.getId(),o.getName(),true,0); }
+    var o=orgs.save(new Organization(null,r.name().trim(),Organization.Kind.COOPERATIVE));
+    return new OrgDto(o.getId(),o.getName(),true,0);
+  }
 
   @PutMapping("/cooperatives/{id}")
   OrgDto updateCoop(@PathVariable Long id,@RequestBody OrgReq r){ fedAdmin();

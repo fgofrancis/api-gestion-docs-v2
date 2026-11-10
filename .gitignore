@@ -1,4 +1,5 @@
 .application*.*
+docs/db.md
 
 data/
 storage/
