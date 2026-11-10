@@ -1,0 +1,26 @@
+# Git
+.git
+.gitignore
+
+# Maven local (Evita transferir compilaciones de tu máquina)
+target/
+*.jar
+*.war
+
+# Archivos del Maven Wrapper locales y temporales
+.mvn/wrapper/maven-wrapper.jar
+.flatpak-info
+
+# Logs y temporales
+*.log
+.metadata/
+.classpath
+.project
+.settings/
+
+# Archivos del sistema operativo y editores
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/

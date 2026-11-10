@@ -1,23 +1,28 @@
-#--------------------
+# --------------------
 # Fase de build
 # --------------------
-# FROM eclipse-temurin:21-jdk AS build
-FROM maven:3.9-eclipse-temurin-21 AS build
-
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 
-COPY . .
+# 1. Copiar primero SOLO los archivos de configuración y el wrapper
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
 
-# RUN chmod +x mvnw
-# RUN ./mvnw clean package -DskipTests
+# 2. Dar permisos y descargar dependencias (Esto se guardará en la caché de Docker)
+RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline -B
+
+# 3. Copiar el código fuente del proyecto
+COPY src ./src
+
+# 4. Compilar el proyecto (Usará las dependencias ya descargadas en el paso 2)
+RUN ./mvnw clean package -DskipTests
 
 # ---------------------
 # Fase de ejecucion
 # ---------------------
 FROM eclipse-temurin:21-jre
-
 WORKDIR /app
-
 COPY --from=build /app/target/*.jar api-docs.jar
 
 EXPOSE 8080
